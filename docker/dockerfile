@@ -5,9 +5,8 @@ USER root
 
 WORKDIR /app
 
-COPY ./dockerfile/submodules.sh /tmp/
-# 755
-RUN chmod 775 /tmp/*
+COPY ./docker/submodules.sh.env /tmp/
+RUN chmod 775 /tmp/* && mv /tmp/submodules.sh.env /tmp/submodules.sh
 
 RUN echo "Please wait, updating..." && apk update && apk add --no-cache wget make git zip bash fontconfig openssh-client
 

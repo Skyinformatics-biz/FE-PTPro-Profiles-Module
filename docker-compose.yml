@@ -1,11 +1,12 @@
 version: "3.7"
+
 services:
-  angular-ui:
-    image: angular-ui
+  ptpro-profiles-module:
+    image: fe-ptpro-profiles
     build:
       context: .
-      dockerfile: dockerfile/angular-ui
-    container_name: angular-ui
+      dockerfile: docker/dockerfile
+    container_name: fe-ptpro-profiles-module
     hostname: 'localhost'
     restart: "no"
     tty: true
@@ -15,11 +16,11 @@ services:
     ports:
       - "4800:4800"
     volumes:
-      - ./ptpro-ui:/app
+      - ./module:/usr/src/app/src/modules/profiles
     #command: sh -c "/tmp/submodules.sh"
     networks:
       - app-network
-
+      
   nginx-server:
     image: nginx:alpine
     container_name: nginx-server
