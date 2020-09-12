@@ -1,0 +1,40 @@
+version: "3.7"
+services:
+  angular-ui:
+    image: angular-ui
+    build:
+      context: .
+      dockerfile: dockerfile/angular-ui
+    container_name: angular-ui
+    hostname: 'localhost'
+    restart: "no"
+    tty: true
+    working_dir: /app
+    environment:
+      NG_CLI_ANALYTICS: "false"
+    ports:
+      - "4800:4800"
+    volumes:
+      - ./ptpro-ui:/app
+    #command: sh -c "/tmp/submodules.sh"
+    networks:
+      - app-network
+
+  nginx-server:
+    image: nginx:alpine
+    container_name: nginx-server
+    restart: "no"
+    tty: true
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/conf.d/:/etc/nginx/conf.d/
+    depends_on:
+      - 'angular-ui'
+    networks:
+      - app-network
+#Docker networks
+networks:
+  app-network:
+    driver: bridge
