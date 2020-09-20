@@ -5,6 +5,7 @@ USER root
 
 WORKDIR /app
 
+COPY ./master/ /usr/app
 COPY ./docker/submodules.sh.env /tmp/
 RUN chmod 775 /tmp/* && mv /tmp/submodules.sh.env /tmp/submodules.sh
 
@@ -29,15 +30,17 @@ RUN touch /root/.ssh/known_hosts \ && ssh-keyscan github.com > /root/.ssh/known_
 # install phantomjs to PATH
 #RUN cd /usr/share \ && ln -s /usr/share/phantomjs/phantomjs /usr/bin/phantomjs \ && phantomjs --version
 
-WORKDIR /usr/app
+WORKDIR /usr/www
 
 RUN export GIT_DISCOVERY_ACROSS_FILESYSTEM=1
-RUN git clone git@github.com:elias-cloudbiz/PTPro-FrontendApp.git /usr/app
+RUN git clone git@github.com:elias-cloudbiz/PTPro.FIT-FE.git /usr/www
+#RUN mv {/usr/tmp/*,/usr/tmp/.*} /usr/www -f
+COPY ./docker/.gitmodules.ssh /usr/www/
+RUN mv /usr/www/.gitmodules.ssh /usr/www/.gitmodules -f
 
-#RUN npm install --verbose
-RUN npm install --verbose --save-dev @angular-devkit/build-angular 
+RUN npm install --verbose
 RUN npm install --verbose -g @angular/cli > /dev/null
 
-ENTRYPOINT ["bash", "/tmp/submodules.sh" ]
+#RUN mv /usr/www/src/app/webconfig.ts.env.prod /usr/www/src/app/webconfig.ts
 
-#RUN ng analytics off
+ENTRYPOINT ["bash", "/tmp/submodules.sh" ]
