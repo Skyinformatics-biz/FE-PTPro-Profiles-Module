@@ -1,5 +1,5 @@
 // @ts-ignore
-import { Injectable, ViewChild } from '@angular/core';
+import { Injectable, ViewChild, Directive } from '@angular/core';
 // @ts-ignore
 import { ActivatedRoute } from '@angular/router';
 // @ts-ignore
@@ -12,6 +12,7 @@ import { ModalService } from '../../../providers/services/modal.service';
 import { Router } from '@angular/router';
 import {Observable} from 'rxjs';
 
+@Directive()
 @Injectable({
   providedIn: 'root'
 })

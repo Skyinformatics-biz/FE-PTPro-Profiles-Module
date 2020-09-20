@@ -24,7 +24,7 @@ export class ProfileDetailComponent implements OnInit, AfterViewInit, AfterViewC
   private Tab: number = 0;
 
 
-  constructor(private route: ActivatedRoute,private router: Router,  private profile: ProfileService, private uSharing: SharingService) {
+  constructor(private route: ActivatedRoute,private router: Router,  public profile: ProfileService, private uSharing: SharingService) {
     this.profile.loading = true;
   }
 

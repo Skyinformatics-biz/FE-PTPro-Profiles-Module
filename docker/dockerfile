@@ -3,9 +3,8 @@ LABEL FE-PTPro Proto
 
 USER root
 
-WORKDIR /app
+WORKDIR /usr/www
 
-COPY ./master/ /usr/app
 COPY ./docker/submodules.sh.env /tmp/
 RUN chmod 775 /tmp/* && mv /tmp/submodules.sh.env /tmp/submodules.sh
 
@@ -30,17 +29,15 @@ RUN touch /root/.ssh/known_hosts \ && ssh-keyscan github.com > /root/.ssh/known_
 # install phantomjs to PATH
 #RUN cd /usr/share \ && ln -s /usr/share/phantomjs/phantomjs /usr/bin/phantomjs \ && phantomjs --version
 
-WORKDIR /usr/www
-
 RUN export GIT_DISCOVERY_ACROSS_FILESYSTEM=1
-RUN git clone git@github.com:elias-cloudbiz/PTPro.FIT-FE.git /usr/www
+
+COPY . /usr/www/src/app/modules/profiles
+
+WORKDIR /usr/www
+RUN npm i --verbose -g @angular/cli > /dev/null
 #RUN mv {/usr/tmp/*,/usr/tmp/.*} /usr/www -f
+
 COPY ./docker/.gitmodules.ssh /usr/www/
 RUN mv /usr/www/.gitmodules.ssh /usr/www/.gitmodules -f
-
-RUN npm install --verbose
-RUN npm install --verbose -g @angular/cli > /dev/null
-
-#RUN mv /usr/www/src/app/webconfig.ts.env.prod /usr/www/src/app/webconfig.ts
 
 ENTRYPOINT ["bash", "/tmp/submodules.sh" ]

@@ -9,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 
 // @ts-ignore
 export class MediaComponent implements OnInit {
-
+  PTHealthPlans = [];
   constructor() { }
 
   ngOnInit() {

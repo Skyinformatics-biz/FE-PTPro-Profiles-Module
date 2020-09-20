@@ -19,13 +19,13 @@ export class ClientprofileComponent implements OnInit {
   // @ts-ignore
   @ViewChild('profilesection') public scroll;
 
-  private Tab: number = 0;
-  private Name = '';
-  private memberType = 'Client';
+  public Tab: number = 0;
+  public Name = '';
+  public memberType = 'Client';
 
 
 
-  constructor(private route: ActivatedRoute,private router: Router, private uSharing: SharingService, private session: SessionService) {
+  constructor(private route: ActivatedRoute,private router: Router, private uSharing: SharingService, public session: SessionService) {
     this.Name = uSharing.firstname + ' ' + uSharing.lastname;
     this.memberType = uSharing.memberType;
   }

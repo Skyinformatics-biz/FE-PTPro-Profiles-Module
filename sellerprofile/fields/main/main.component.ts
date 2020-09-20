@@ -1,7 +1,7 @@
 // @ts-ignore
 import { Component, OnInit } from '@angular/core';
 
-import {MatDialog, MatDialogConfig} from "@angular/material";
+import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
 
 //import Professional
 import { ProfessionalAddComponent} from './modal/add/professionalAddComponent/professional.component';
